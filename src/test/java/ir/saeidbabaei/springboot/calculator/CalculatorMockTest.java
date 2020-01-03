@@ -30,6 +30,8 @@ public class CalculatorMockTest {
 	CalculatorServiceIntf calculatorServiceIntf = new CalculatorServiceImpl();
 
 	Optional<ValuesDtO> values = Optional.of(new ValuesDtO(Optional.of("15"), Optional.of("3")));
+	
+	String value = "{\"value\":\"5\"}";
 
 	@Before
 	public void setUp() {
@@ -41,6 +43,12 @@ public class CalculatorMockTest {
 		when(this.calculatorServiceIntf.multiply(this.values)).thenReturn(new CalculationResult(BigDecimal.valueOf(45)));
 		
 		when(this.calculatorServiceIntf.subtract(this.values)).thenReturn(new CalculationResult(BigDecimal.valueOf(12)));
+		
+		when(this.calculatorServiceIntf.square(this.value)).thenReturn(new CalculationResult(BigDecimal.valueOf(25)));
+		
+		when(this.calculatorServiceIntf.factorial(this.value)).thenReturn(new CalculationResult(BigDecimal.valueOf(120)));
+		
+		when(this.calculatorServiceIntf.prime(this.value)).thenReturn("{\r\n\"result\":\"true\"\r\n}");
 
 	}
 
@@ -62,5 +70,20 @@ public class CalculatorMockTest {
 	@Test
 	public void testSubtract() {
 		assertEquals(BigDecimal.valueOf(12), this.calculatorServiceIntf.subtract(this.values).getResult());
+	}
+	
+	@Test
+	public void testSquare() {
+		assertEquals(BigDecimal.valueOf(25), this.calculatorServiceIntf.square(this.value).getResult());
+	}
+	
+	@Test
+	public void testFactorial() {
+		assertEquals(BigDecimal.valueOf(120), this.calculatorServiceIntf.factorial(this.value).getResult());
+	}
+	
+	@Test
+	public void testPrime() {
+		assertEquals("{\r\n\"result\":\"true\"\r\n}", this.calculatorServiceIntf.prime(this.value));
 	}
 }

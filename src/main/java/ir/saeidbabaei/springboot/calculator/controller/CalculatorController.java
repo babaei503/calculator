@@ -15,7 +15,8 @@ import ir.saeidbabaei.springboot.calculator.service.CalculatorServiceIntf;
 
 /**
  * Calculator controller that offers a REST API for simple operations on numbers.
- * Operations(Add, Divide, Multiply, Subtract).
+ * Operations(Add, Divide, Multiply, Subtract) and
+ * Operations(Square, Factorial, Prime).
  * 
  * @author Saeid Babaei
  * @version 1.0
@@ -62,6 +63,24 @@ public class CalculatorController {
 	public ResponseEntity<CalculationResult> subtract(@RequestBody Optional<ValuesDtO> values) {
 
 		return ResponseEntity.ok().body(this.calculatorServiceIntf.subtract(values));
+	}
+	
+	@RequestMapping(value = "/square", method = RequestMethod.GET)
+	public ResponseEntity<CalculationResult> square(@RequestBody String value) {
+		
+		return ResponseEntity.ok().body(this.calculatorServiceIntf.square(value));
+	}
+	
+	@RequestMapping(value = "/factorial", method = RequestMethod.GET)
+	public ResponseEntity<CalculationResult> factorial(@RequestBody String value) {
+
+		return ResponseEntity.ok().body(this.calculatorServiceIntf.factorial(value));
+	}
+	
+	@RequestMapping(value = "/prime", method = RequestMethod.GET)
+	public ResponseEntity<String> prime(@RequestBody String value) {
+
+		return ResponseEntity.ok().body(this.calculatorServiceIntf.prime(value));
 	}
 
 }

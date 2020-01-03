@@ -7,7 +7,8 @@ import ir.saeidbabaei.springboot.calculator.model.ValuesDtO;
 
 /**
  * Calculator class that offers simple operations on numbers.
- * Operations(Add, Divide, Multiply, Subtract).
+ * Operations(Add, Divide, Multiply, Subtract) and
+ * Operations(Square, Factorial, Prime).
  * 
  * @author Saeid Babaei
  * @version 1.0
@@ -70,5 +71,40 @@ public interface CalculatorServiceIntf {
      * @exception 			BadRequestException if input is not valid.
 	 */
 	CalculationResult subtract(Optional<ValuesDtO> values);
+	
+	/**Get a number in String format return square as result in
+	 * CalculationResult format.
+	 * See also 
+	 * {@link ir.saeidbabaei.springboot.calculator.model.CalculationResult}
+	 * {@link ir.saeidbabaei.springboot.calculator.exception.BadRequestException}
+	 * 
+	 * @param 		value	A number in String format.
+     * @return   			The square as result in CalculationResult format.
+     * @exception 			BadRequestException if input is not valid.
+	 */
+	CalculationResult square(String value);	
+	
+	/**Get a number in String format return factorial as result in
+	 * CalculationResult format.
+	 * See also 
+	 * {@link ir.saeidbabaei.springboot.calculator.model.CalculationResult}
+	 * {@link ir.saeidbabaei.springboot.calculator.exception.BadRequestException}
+	 * 
+	 * @param 		value	A number in String format.
+     * @return   			The factorial as result in CalculationResult format.
+     * @exception 			BadRequestException if input is not valid.
+	 */
+	CalculationResult factorial(String value);
+	
+	/**Get a number in String format and calculate that 
+	 * it is prime or not.
+	 * See also 
+	 * {@link ir.saeidbabaei.springboot.calculator.exception.BadRequestException}
+	 * 
+	 * @param 		value	A number in String format.
+     * @return   			The number is prime or not(true or false).
+     * @exception 			BadRequestException if input is not valid.
+	 */
+	String prime(String value);
 
 }

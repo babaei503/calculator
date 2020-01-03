@@ -26,6 +26,7 @@ import ir.saeidbabaei.springboot.calculator.model.ValuesDtO;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@SuppressWarnings("deprecation")
 public class CalculatorControllerTest {
 	
   @LocalServerPort
@@ -375,7 +376,214 @@ public class CalculatorControllerTest {
 	  
   } 
   
+  @Test
+  public void shouldSquareNumber() throws Exception {
+	  	  
+	  String valuesJsonStr = "{\"value\":\"5\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+	    	      .get(this.baseUrl + "square")
+				  .content(valuesJsonStr)
+				  .contentType(MediaType.APPLICATION_JSON_UTF8)
+				  .accept(MediaType.APPLICATION_JSON_UTF8))
+				  .andExpect(status().isOk())
+				  .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(25.0));
+
+  }
   
+  @Test
+  public void shouldSquareNumberWithNegative() throws Exception {
+	  
+	  String valuesJsonStr = "{\"value\":\"-5\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+	    	      .get(this.baseUrl + "square")
+				  .content(valuesJsonStr)
+				  .contentType(MediaType.APPLICATION_JSON_UTF8)
+				  .accept(MediaType.APPLICATION_JSON_UTF8))
+				  .andExpect(status().isOk())
+				  .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(25.0));
 
+  }  
+  
+  @Test
+  public void validateSquareStatusCodeWithString() throws Exception{
+	  
+	  String valuesJsonStr = "{\"value\":\"a\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "square")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+	  
+  }
+  
+  @Test
+  public void validateSquareStatusCodeWithEmpty() throws Exception{
+	  
+	  String valuesJsonStr = "{\"value\":\"\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "square")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+	  
+  } 
 
+  @Test
+  public void shouldFactorialNumber() throws Exception {
+	  	  
+	  String valuesJsonStr = "{\"value\":\"5\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+	    	      .get(this.baseUrl + "factorial")
+				  .content(valuesJsonStr)
+				  .contentType(MediaType.APPLICATION_JSON_UTF8)
+				  .accept(MediaType.APPLICATION_JSON_UTF8))
+				  .andExpect(status().isOk())
+				  .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(120.0));
+
+  }
+  
+  @Test
+  public void shouldFactorialNumberWithNegative() throws Exception {
+	  
+	  String valuesJsonStr = "{\"value\":\"-5\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "factorial")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+
+  }  
+  
+  @Test
+  public void validateFactorialStatusCodeWithString() throws Exception{
+	  
+	  String valuesJsonStr = "{\"value\":\"a\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "factorial")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+	  
+  }
+  
+  @Test
+  public void validateFactorialStatusCodeWithEmpty() throws Exception{
+	  
+	  String valuesJsonStr = "{\"value\":\"\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "factorial")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+	  
+  } 
+  
+  @Test
+  public void validateFactorialStatusCodeWithDecimalNumber() throws Exception{
+	  
+	  String valuesJsonStr = "{\"value\":\"3.2\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "factorial")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+	  
+  }
+  
+  @Test
+  public void shouldCheckIsPrimeNumber() throws Exception {
+	  	  
+	  String valuesJsonStr = "{\"value\":\"5\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+	    	      .get(this.baseUrl + "prime")
+				  .content(valuesJsonStr)
+				  .contentType(MediaType.APPLICATION_JSON_UTF8)
+				  .accept(MediaType.APPLICATION_JSON_UTF8))
+				  .andExpect(status().isOk())
+				  .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("true"));
+
+  }
+  
+  @Test
+  public void shouldPrimeNumberWithNegative() throws Exception {
+	  
+	  String valuesJsonStr = "{\"value\":\"-5\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "prime")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+
+  }  
+  
+  @Test
+  public void validatePrimeStatusCodeWithString() throws Exception{
+	  
+	  String valuesJsonStr = "{\"value\":\"a\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "prime")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+	  
+  }
+  
+  @Test
+  public void validatePrimeStatusCodeWithEmpty() throws Exception{
+	  
+	  String valuesJsonStr = "{\"value\":\"\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "prime")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+	  
+  } 
+  
+  @Test
+  public void validatePrimeStatusCodeWithDecimalNumber() throws Exception{
+	  
+	  String valuesJsonStr = "{\"value\":\"3.2\"}";
+	  	  
+	  mvc.perform(MockMvcRequestBuilders
+    	      .get(this.baseUrl + "factorial")
+			  .content(valuesJsonStr)
+			  .contentType(MediaType.APPLICATION_JSON_UTF8)
+			  .accept(MediaType.APPLICATION_JSON_UTF8))
+			  .andDo(print())
+		      .andExpect(status().isBadRequest());
+	  
+  }
+  
 }
